@@ -10,7 +10,7 @@ function createWindow() {
     win = new BrowserWindow( { 
         width: 1400,
         height: 850,
-        webPreferences: {nodeIntegration: false}
+        webPreferences: {nodeIntegration: true}
     } );
 
     // Load index.html
