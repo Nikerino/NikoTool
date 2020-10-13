@@ -1,0 +1,130 @@
+.menu-contents {
+	width: 80%;
+	height: 94%;
+	position: absolute;
+	top: 6%;
+	left: 20%;
+	justify-content: center;
+	align-items: center;
+}
+
+.contents-wrapper {
+	position: absolute;
+	top: 5%;
+	left: 5%;
+	width: 90%;
+	height: 92.5%;
+}
+
+.contents-head {
+	height: 10%;
+	width: 100%;
+	display: flex;
+	align-items: center;
+	border-bottom: 0.2rem solid #e74c3c;
+}
+
+.contents-list {
+	height: 80%;
+	width: 100%;
+}
+
+.list-item {
+	height: 10%;
+	width: 100%;
+
+	display: flex;
+	align-items: center;
+
+	margin-top: 1.5%;
+
+	background: rgba( 255, 255, 255, 0.5 );
+
+	cursor: grab;
+}
+
+.list-item * {
+	font-size: 1.2rem;
+
+	display: flex;
+	align-items: center;
+}
+
+.list-item-prefix {
+	height: 100%;
+	width: 5%;
+	justify-content: center;
+}
+
+.list-item-text {
+	height: 100%;
+	width: 80%;
+}
+
+.list-item-complete {
+	height: 100%;
+	width: 5%;
+	justify-content: center;
+}
+
+.list-item-edit {
+	height: 100%;
+	width: 5%;
+	justify-content: center;
+}
+
+.list-item-delete {
+	height: 100%;
+	width: 5%;
+	justify-content: center;
+}
+
+.list-item-complete:hover {
+	cursor: grab;
+	color: #e74c3c;
+}
+
+.list-item-edit:hover {
+	cursor: grab;
+	color: #e74c3c;
+}
+
+.list-item-delete:hover {
+	cursor: grab;
+	color: #e74c3c;
+}
+
+.list-item-add-wrapper {
+	height: 7.5%;
+	width: 100%;
+	border: none;
+	border-bottom: 0.2rem solid #e74c3c;
+
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding-left: 1.25%;
+	padding-right: 1.25%;
+}
+
+.list-item-add-wrapper * {
+	font-size: 1.3rem;
+	display: flex;
+	align-items: center;
+}
+
+.list-item-add {
+	width: 90%;
+	height: 100%;
+
+	background: none;
+	border: none;
+
+	outline: none;
+}
+
+.list-item-add-wrapper span {
+	width: 10%;
+	height: 100%;
+	justify-content: flex-end;
+}

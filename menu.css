@@ -5,10 +5,6 @@
 	color: white;
 }
 
-body {
-	box-sizing: border-box;
-}
-
 .titlebar {
 	height: 6%;
 	width: 100%;
@@ -29,13 +25,11 @@ body {
 	background-color: #444;
 	box-shadow: 0 0 1.5rem 1rem rgba( 0, 0, 0, 0.3 );
 	overflow: hidden;
-
-	padding: 1.25%;
 	padding-top: 2.5%;
 }
 
 .list {
-	width: 90%;
+	width: 95%;
 	height: 7.5%;
 	transition-duration: 0.3s;
 
@@ -98,13 +92,14 @@ body {
 }
 
 .lists-add-wrapper {
-	width: 100%;
+	width: 90%;
 	border: none;
 	border-bottom: 0.2rem solid #e74c3c;
 	background: none;
 
 	display: flex;
 	margin-top: 15%;
+	margin-left: 5%;
 }
 
 .lists-add-wrapper span {

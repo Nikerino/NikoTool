@@ -3,8 +3,6 @@
 
 function loadList( list ) {
 
-	
-		
 }
 
 // change selected list
@@ -16,5 +14,7 @@ $( ".list" ).on( "click", function() {
 	// remove selected list from currently selected and add to new one
 	$( ".selected-list" ).removeClass( "selected-list" );
 	$( this ).addClass( "selected-list" );
+
+	loadList( $( this ) );
 
 } )  
