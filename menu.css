@@ -29,7 +29,7 @@
 }
 
 .list {
-	width: 95%;
+	width: 90%;
 	height: 7.5%;
 	transition-duration: 0.3s;
 
@@ -50,11 +50,11 @@
 	content: "\26ac";
 }
 
-.list span {
+.list-text {
 	width: 90%;
 }
 
-.list div {
+.list-delete {
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -62,7 +62,21 @@
 	transition-duration: 0.4s;	
 }
 
-.list div:hover {
+.list-edit {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 1.2rem;
+	transition-duration: 0.4s;
+	margin-right: 3%;	
+}
+
+.list-delete:hover {
+	cursor: grab;
+	color: #e74c3c;
+}
+
+.list-edit:hover {
 	cursor: grab;
 	color: #e74c3c;
 }
@@ -102,15 +116,15 @@
 	margin-left: 5%;
 }
 
-.lists-add-wrapper span {
+.lists-add-button {
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	font-size: 1.2rem;
-	transition-duration: 0.4s;
+	transition-duration: 0.2s;
 }
 
-.lists-add-wrapper span:hover {
+.lists-add-button:hover {
 	cursor: grab;
 	color: #e74c3c;
 }
