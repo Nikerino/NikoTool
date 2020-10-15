@@ -38,7 +38,6 @@
 	font-size: 1.2rem;
 
 	margin-top: 5%;
-	overflow: visible;
 
 	outline: none;
 	border: none;
@@ -61,7 +60,10 @@
 
 .list-text {
 	width: 95%;
+	height: 100%;
 	padding: 0.5rem;
+	white-space: nowrap;
+	overflow: hidden;
 }
 
 .selected-list {

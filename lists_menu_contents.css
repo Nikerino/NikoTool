@@ -26,6 +26,8 @@
 
 .list-title {
 	width: 90%;
+	white-space: nowrap;
+	overflow: hidden;
 }
 
 .list-delete {
@@ -106,6 +108,8 @@
 .list-item-text {
 	height: 100%;
 	width: 87%;
+	white-space: nowrap;
+	overflow: hidden;
 }
 
 .list-item-edit {

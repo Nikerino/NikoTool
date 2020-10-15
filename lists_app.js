@@ -111,10 +111,12 @@ function editList() {
 
 	lists = tempMap; // assign to global
 
+	// set properties for current list
 	let currList = $( `#${oldName}` );
 	currList.attr( "id", newName );
 	currList.find( ".list-text" ).html( `&nbsp ${newName}` );
 
+	// load list into content view
 	loadList( selectedList );
 
 }
@@ -168,11 +170,29 @@ function editListItem() {
 		tempSet.add( item );
 	} )// this keeps items in proper order
 
-	selectedList.items = tempSet; // assign to items of list
+	// assign to items of list
+	selectedList.items = tempSet; 
 
+	// set id attr for this item
 	itemEditing.attr( "id", newName );
 
+	// load the list with item now changed
 	loadList( selectedList );
+
+}
+
+function orderSet( movedItem ) {
+
+	// temp set will become main items set for selected list
+	let tempSet = new Set();
+
+	// add items to set in visual order
+	movedItem.parent().children().each( function() {
+		tempSet.add( $( this ).attr( "id" ) );
+	} );
+
+	// assign new set to items of selected list
+	selectedList.items = tempSet;
 
 }
 
@@ -244,11 +264,15 @@ function initEventListeners() {
 	} );
 
 	// make elements draggable
+	/*
 	const draggables = document.querySelectorAll( ".draggable" );
 	draggables.forEach( draggable => {
 		draggable.addEventListener( "dragstart", () => { draggable.classList.add( "dragging" ); } )
 		draggable.addEventListener( "dragend", () => { draggable.classList.remove( "dragging" ); } )
-	} )
+	} )*/
+
+	$( ".draggable" ).on( "dragstart", function() { $( this ).addClass( "dragging" ); } )
+	$( ".draggable" ).on( "dragend", function() { $( this ).removeClass( "dragging" ); orderSet( $( this ) ); } )
 
 }
 
