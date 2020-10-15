@@ -14,7 +14,7 @@ function createWindow() {
     } );
 
     // Load index.html
-    win.loadFile( "./index.html" );
+    win.loadFile( "./src/index.html" );
 
     // Remove default menubar
     win.setMenu( null );

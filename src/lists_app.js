@@ -324,6 +324,8 @@ function load() {
 	let str = String( localStorage.savedLists );
 	let listStrings = str.split( LIST_OUTER_DLIM );
 
+	console.log( str );
+
 	// If there's nothing to restore, do the initial setup
 	if ( str == "undefined" ) {
 
