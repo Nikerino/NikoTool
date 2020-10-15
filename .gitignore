@@ -1,5 +1,8 @@
-# node modules
+# Node modules
 node_modules/
 
-#distribution files
+# Distribution files
 dist/
+
+# Readme
+README.md
