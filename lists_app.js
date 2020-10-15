@@ -2,10 +2,14 @@
 // Personal planner application
 
 let lists = new Map();
+
+const LIST_INNER_DELIM = "^4@53#;";
+const LIST_OUTER_DLIM = "0@38$*2";
+
 let selectedList;
 let itemEditing;
 
-const defaultListName = "To-Do List";
+const DEFAULT_LIST_NAME = "To-Do List";
 
 function loadList( list ) {
 
@@ -13,7 +17,7 @@ function loadList( list ) {
 	$( ".list-title" ).html( list.name );
 
 	// Add edit and delete buttons depending on list
-	if ( list.name.normalize() == defaultListName.normalize() ) {
+	if ( list.name.normalize() == DEFAULT_LIST_NAME.normalize() ) {
 		$( ".list-delete" ).css( "display", "none" );
 		$( ".list-edit" ).css( "display", "none" );
 	}
@@ -42,7 +46,7 @@ function selectList( list ) {
 	list.addClass( "selected-list" );
 
 	// Set global selected list to new list
-	selectedList = lists.get( list.attr( "id" ) );
+	selectedList = lists.get( list.attr( "name" ) );
 
 	// Visually load list
 	loadList( selectedList );
@@ -68,20 +72,20 @@ function createList( listName ) {
 	// Reset input box for list name
 	$( ".lists-add" ).val( "" );
 
-	selectList( $( `#${listName}` ) );
+	selectList( $( `[name="${listName}"]` ) );
 
 }
 
 function removeList( list ) {
 
 	// Delete list from map of lists
-	lists.delete( list.attr( "id" ) );
+	lists.delete( list.attr( "name" ) );
 
 	// Visually delete list
 	list.remove();
 
 	// Select the default list
-	selectList( $( ".default-list" ) );
+	selectList( $( `[name="${DEFAULT_LIST_NAME}"]` ) );
 
 }
 
@@ -112,8 +116,8 @@ function editList() {
 	lists = tempMap; // assign to global
 
 	// set properties for current list
-	let currList = $( `#${oldName}` );
-	currList.attr( "id", newName );
+	let currList = $( `[name="${oldName}"]` );
+	currList.attr( "name", newName );
 	currList.find( ".list-text" ).html( `&nbsp ${newName}` );
 
 	// load list into content view
@@ -140,7 +144,7 @@ function createListItem( itemName ) {
 function removeListItem( listItem ) {
 
 	// Delete item from list's set
-	selectedList.items.delete( listItem.attr( "id" ) );
+	selectedList.items.delete( listItem.attr( "name" ) );
 
 	// Visually delete item from list content
 	listItem.remove();
@@ -150,7 +154,7 @@ function removeListItem( listItem ) {
 function editListItem() {
 
 	// get old name and new name
-	let oldName = itemEditing.attr( "id" );
+	let oldName = itemEditing.attr( "name" );
 	let newName = $( ".edit-modal" ).find( "input" ).val();
 
 	// if name already exists or is empty, just return... damn users
@@ -173,8 +177,8 @@ function editListItem() {
 	// assign to items of list
 	selectedList.items = tempSet; 
 
-	// set id attr for this item
-	itemEditing.attr( "id", newName );
+	// set name attr for this item
+	itemEditing.attr( "name", newName );
 
 	// load the list with item now changed
 	loadList( selectedList );
@@ -188,7 +192,7 @@ function orderSet( movedItem ) {
 
 	// add items to set in visual order
 	movedItem.parent().children().each( function() {
-		tempSet.add( $( this ).attr( "id" ) );
+		tempSet.add( $( this ).attr( "name" ) );
 	} );
 
 	// assign new set to items of selected list
@@ -196,9 +200,31 @@ function orderSet( movedItem ) {
 
 }
 
+function handleListEnter( e ) {
+	let key = e.keyCode;
+	if ( key == 13 ) {
+		createList( $( ".lists-add" ).val() );
+	}
+}
+
+function handleListItemEnter( e ) {
+	let key = e.keyCode || e.which;
+	if ( key == 13 ) {
+		createListItem( $( ".list-item-add" ).val() );
+	}
+}
+
+function handleEditEnter( e ) {
+	let key = e.keyCode;
+	if ( key == 13 ) {
+		if ( itemEditing.hasClass( "list" ) ) { editList(); }
+		else { editListItem(); }
+	}
+}
+
 function addToListMenu( listName ) {
 	$( `
-		<div class="list" id="${listName}">
+		<div class="list" name="${listName}">
 			<span class="list-prefix">&#9776</span>
 			<span class="list-text">&nbsp ${listName}</span>
 		</div>
@@ -207,7 +233,7 @@ function addToListMenu( listName ) {
 
 function addToListContents( itemName ) {
 	$( `
-		<div class="list-item draggable" draggable="true" id="${itemName}">
+		<div class="list-item draggable" draggable="true" name="${itemName}">
 			<span class="list-item-prefix">&#x27A4</span>
 			<span class="list-item-text">${itemName}</span>
 			<span class="list-item-edit" data-toggle="modal" data-target=".edit-modal">&#x270E</span>
@@ -230,7 +256,7 @@ function initEventListeners() {
 
 	// Delete list
 	$( ".btn-delete-list" ).off().on( "click", function() {
-		removeList( $( `#${selectedList.name}` ) );
+		removeList( $( `[name="${selectedList.name}"]` ) );
 	} );
 
 	// For delete modal, sets header to include name of list to be deleted
@@ -240,7 +266,9 @@ function initEventListeners() {
 
 	// Edit list
 	$( ".list-edit" ).off().on( "click", function() {
-		itemEditing = $( `#${selectedList.name}` )
+		itemEditing = $( `[name="${selectedList.name}"]` );
+		$( ".edit-modal" ).find( "input" ).val( selectedList.name )
+		$( ".edit-modal" ).find( "input" ).focus();
 	} );
 
 	$( ".btn-edit-save" ).off().on( "click", function() {
@@ -261,6 +289,7 @@ function initEventListeners() {
 	// Edit list item
 	$( ".list-item-edit" ).off().on( "click", function() {
 		itemEditing = $( this ).parent();
+		$( ".edit-modal" ).find( "input" ).val( itemEditing.attr( "name" ) );
 	} );
 
 	// make elements draggable
@@ -276,6 +305,72 @@ function initEventListeners() {
 
 }
 
+function save() {
+
+	let str = lists.get( DEFAULT_LIST_NAME ).toString(); // start string off with default list
+
+	for ( [key, value] of lists.entries() ) { // add every list to string
+		if ( key.normalize() == DEFAULT_LIST_NAME.normalize() ) { continue; }
+		str += ( LIST_OUTER_DLIM + value.toString() );
+	}
+
+	localStorage.savedLists = str; // store lists string
+
+}
+
+function load() {
+
+	// initial objects
+	let str = String( localStorage.savedLists );
+	let listStrings = str.split( LIST_OUTER_DLIM );
+
+	// If there's nothing to restore, do the initial setup
+	if ( str == "undefined" ) {
+
+		initialSetup(); 
+		return;
+	}
+
+	// add all items for each list to their set
+	listStrings.forEach( ls => {
+		let items = ls.split( LIST_INNER_DELIM );
+		createList( items[0] );
+		let tempList = lists.get( items[0] );
+		for ( let i = 1; i < items.length; i++ ) { tempList.items.add( items[i] ); }
+	} )
+
+	loadList( lists.get( DEFAULT_LIST_NAME ) );
+
+}
+
+function initialSetup() {
+
+	// Setup To-Do List that cannot be deleted
+		let newList = new List( DEFAULT_LIST_NAME );
+
+		// Add this list to the map of lists
+		lists.set( DEFAULT_LIST_NAME, newList );
+
+		// Visually add this list to the menu
+		$( `
+			<div class="list default-list" name="${DEFAULT_LIST_NAME}">
+				<span class="list-prefix">&#9776</span>
+				<span class="list-text">&nbsp ${DEFAULT_LIST_NAME}</span>
+			</div>
+			` ).appendTo( ".lists" );
+
+		// Make Selected
+		$( ".default-list" ).addClass( "selected-list" );
+		selectedList = newList;
+
+		// Load this list
+		loadList( newList );
+
+		// setup event listenes
+		initEventListeners();
+
+}
+
 class List {
 
 	constructor( name ) {
@@ -283,32 +378,30 @@ class List {
 		this.items = new Set();
 	}
 
+	toString() {
+		let str = this.name;
+		this.items.forEach( item => { str += ( LIST_INNER_DELIM + item ); } );
+		return str;
+	}
+
 }
 
-$(document).ready( function() {
+// ON STARTUP
+$( document ).ready( function() {
 
-	// Setup To-Do List that cannot be deleted
-	let newList = new List( defaultListName );
+	load();
 
-	// Add this list to the map of lists
-	lists.set( defaultListName, newList );
+	selectList( $( `[name="${DEFAULT_LIST_NAME}"]` ) );
 
-	// Visually add this list to the menu
-	$( `
-		<div class="list default-list" id="${defaultListName}">
-			<span class="list-prefix">&#9776</span>
-			<span class="list-text">&nbsp ${defaultListName}</span>
-		</div>
-		` ).appendTo( ".lists" );
+	// Init textbox focus event listener for edit modal
+	$( ".edit-modal" ).on( "shown.bs.modal", function() {
+		setTimeout( function() {
+			$( ".edit-modal" ).find( "input" ).focus();
+		} ) 
+	} )
 
-	// Make Selected
-	$( ".default-list" ).addClass( "selected-list" );
-	selectedList = newList;
+} )
 
-	// Load this list
-	loadList( newList );
-
-	// setup event listenes
-	initEventListeners();
-
+$( window ).on( "beforeunload", function() {
+	save();
 } )

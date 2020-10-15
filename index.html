@@ -15,14 +15,17 @@
 
 	<body>
 
-		<div class="titlebar"></div>
+		<div class="titlebar">
+			<span class="titlebar-logo">&#x2756</span>
+			<span class="titlebar-title">NikoTool</span>
+		</div>
 
 		<div class="menu" >
 
 			<div class="lists"></div>
 
 			<div class="lists-add-wrapper">
-				<input type="text" class="lists-add" placeholder="New List">
+				<input type="text" class="lists-add" placeholder="New List" onkeypress="handleListEnter( event )">
 				<span class="lists-add-button">&#x271A</span>
 			</div>
 
@@ -41,7 +44,7 @@
 				<div class="contents-list draggable-container"></div>
 
 				<div class="list-item-add-wrapper">
-					<input type="text" class="list-item-add" placeholder="New Item">
+					<input type="text" class="list-item-add" placeholder="New Item" onkeypress="handleListItemEnter( event )">
 					<span class="list-item-add-button">&#x271A</span>
 				</div>
 
@@ -63,7 +66,7 @@
 	      </div>
 
 	      <div class="modal-body">
-	        <input type="text" placeholder="New Name" class="edit-modal-input">
+	        <input type="text" placeholder="New Name" class="edit-modal-input" onkeypress="handleEditEnter( event )">
 	      </div>
 
 	      <div class="modal-footer">

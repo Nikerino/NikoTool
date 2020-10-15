@@ -20,7 +20,7 @@ function createWindow() {
     win.setMenu( null );
 
     // Open devtools
-    win.webContents.openDevTools()
+    //win.webContents.openDevTools()
 
     // Close window
     win.on( "closed", function() {
