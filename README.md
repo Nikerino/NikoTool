@@ -4,7 +4,7 @@ My personal organizer application
 ## About
 This application is to keep myself organized and productive. I previously used a pen and paper planner and thought to myself how much easier it would be if I had a software for this. There are plenty of applications like this out there, but I thought it'd be fun to make one on my own, so here it is.
 
-The goal for this project was to keep it simple and minimilistic. I've been trying to make a project like this for a while, but everytime I drew something up, it was too complicated. I was getting caught up in the cool features I could make it have but on this one am really going for a simplistic, easy to use but useful feeling.
+The goal for this project was to keep it simple and minimilistic. I've been trying to make a project like this for a while, but everytime I drew something up, it was too complicated. I was getting caught up in the cool features I could make it have but on this one I am really going for a simplistic, easy to use but useful feeling.
 
 ## Status
 - I just finished the lists feature for this project and while I'm still swamped with schoolwork, I'm at least more organized with it. Only a month left in this semester and I'll have a lot of free time this winter to work on this project more. 
