@@ -6,8 +6,9 @@
 
 		<title>Niko Tool</title>
 		<link rel="stylesheet" href="theme.css">
-		<link rel="stylesheet" href="menu.css">
-		<link rel="stylesheet" href="menu_contents.css">
+		<link rel="stylesheet" href="lists_menu.css">
+		<link rel="stylesheet" href="lists_menu_contents.css">
+		<link rel="stylesheet" href="lists_modals.css">
 		<link href="https://fonts.googleapis.com/css2?family=Quicksand&display=swap" rel="stylesheet">
 
 	</head>
@@ -31,7 +32,11 @@
 
 			<div class="contents-wrapper">
 
-				<h1 class="contents-head">Name of List</h1>
+				<h1 class="contents-head">
+					<span class="list-title">Name of List</span>
+					<span class="list-edit" data-toggle="modal" data-target=".edit-modal">&#x270E</span>
+					<span class="list-delete" data-toggle="modal" data-target=".delete-modal">&#x2716</span>
+				</h1>
 
 				<div class="contents-list draggable-container"></div>
 
@@ -46,9 +51,53 @@
 
 	</body>
 
+	<div class="modal edit-modal">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+
+	      <div class="modal-header">
+	        <h5 class="modal-title">Edit</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+
+	      <div class="modal-body">
+	        <input type="text" placeholder="New Name" class="edit-modal-input">
+	      </div>
+
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-success btn-edit-save">Save Changes</button>
+	        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+	      </div>
+
+	    </div>
+	  </div>
+	</div>
+
+	<div class="modal delete-modal">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+
+	      <div class="modal-header">
+	        <h5 class="modal-title">Are you sure you want to delete?</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-success btn-delete-list" data-dismiss="modal">Yes</button>
+	        <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
+	      </div>
+
+	    </div>
+	  </div>
+	</div>
+
 	<script>window.jQuery = window.$ = require('./node_modules/jquery/dist/jquery.js');</script>
     <script src="node_modules/bootstrap/dist/js/bootstrap.js"></script>
-    <script src="app.js"></script>
-    <script src="draggable.js"></script>
+    <script src="lists_app.js"></script>
+    <script src="lists_draggable.js"></script>
 
 </html>
